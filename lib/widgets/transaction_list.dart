@@ -1,7 +1,9 @@
+import 'package:first_app/widgets/chart.dart';
 import 'package:first_app/widgets/new_transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/transaction.dart';
+import '../main.dart';
 
 class TransactionList extends StatefulWidget {
   final List<Transaction> transactions;
@@ -29,6 +31,16 @@ class _TransactionListState extends State<TransactionList> {
     );
   }
 
+  List<Transaction> get recentTransactions {
+    return widget.transactions.where((tx) {
+      return tx.date.isAfter(
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ),
+      );
+    }).toList();
+  }
+
   void editTransaction(double editAmount, String editDetail) {
     final editTx = Transaction(
       id: DateTime.now().toString(),
@@ -45,8 +57,8 @@ class _TransactionListState extends State<TransactionList> {
 
   void editButton(String id) {
     setState(() {
-      startAddNewTransaction(context);
       widget.transactions.removeWhere((tx) => tx.id == id);
+      Chart(recentTransactions);
     });
   }
 
@@ -74,12 +86,9 @@ class _TransactionListState extends State<TransactionList> {
               ],
             ),
             isThreeLine: true,
-
             dense: false,
-            // visualDensity: VisualDensity(horizontal: 5),
             trailing: IconButton(
               onPressed: () {
-                print(widget.transactions[index].id);
                 editButton(widget.transactions[index].id);
                 NewTransaction(editTransaction);
               },

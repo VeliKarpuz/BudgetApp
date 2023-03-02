@@ -36,25 +36,24 @@ class _NewTransactionState extends State<NewTransaction> {
       initialDate: DateTime.now(),
       firstDate: DateTime(2023),
       lastDate: DateTime.now(),
-      // builder: (context, child) {
-      //   return Theme(
-      //     data: Theme.of(context).copyWith(
-      //       colorScheme: const ColorScheme.dark(
-      //           primary: appBarColor,
-      //           onPrimary: Colors.white,
-      //           surface: appBarColor,
-      //           onSurface: Colors.black,
-      //           background: cardBackgroundColor),
-      //     ),
-      //     child: child!,
-      //   );
-      // },
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.dark(
+                primary: appBarColor,
+                onPrimary: Colors.white,
+                surface: appBarColor,
+                onSurface: Colors.black,
+                background: cardBackgroundColor),
+          ),
+          child: child!,
+        );
+      },
     ).then((pickedDate) {
       setState(() {
         selectedDate = pickedDate!;
       });
     });
-    print("object");
   }
 
   @override
