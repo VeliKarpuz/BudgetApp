@@ -1,5 +1,4 @@
 import 'package:first_app/widgets/chart.dart';
-import 'package:first_app/widgets/chart_bar.dart';
 import 'package:first_app/widgets/new_transaction.dart';
 import 'package:first_app/widgets/transaction_list.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return transactions.where((tx) {
       return tx.date.isAfter(
         DateTime.now().subtract(
-          Duration(days: 7),
+          const Duration(days: 7),
         ),
       );
     }).toList();
@@ -79,6 +78,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void editButton(String id) {
+    setState(() {
+      transactions.removeWhere((tx) => tx.id == id);
+      // Chart(recentTransactions);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -98,14 +104,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: Column(
           children: <Widget>[
-            Container(
+            const SizedBox(
               height: 140,
               child: Center(
                 child: Text("Chart 2"),
               ),
             ),
             Chart(recentTransactions),
-            TransactionList(transactions),
+            TransactionList(transactions, editButton),
           ],
         ),
       ),

@@ -165,7 +165,7 @@ class _NewTransactionState extends State<NewTransaction> {
                 ),
                 Text(
                   DateFormat.yMMMd().format(selectedDate).toString(),
-                  style: TextStyle(color: Colors.green),
+                  style: const TextStyle(color: Colors.green),
                 ),
               ],
             ),

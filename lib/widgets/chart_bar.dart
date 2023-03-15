@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:first_app/models/const.dart';
 import 'package:flutter/material.dart';
 
@@ -7,8 +5,9 @@ class ChartBar extends StatelessWidget {
   final String label;
   final double spendingAmount;
   final double percentOfTotal;
-  ChartBar(
-      {required this.label,
+  const ChartBar(
+      {super.key,
+      required this.label,
       required this.spendingAmount,
       required this.percentOfTotal});
 
@@ -18,14 +17,14 @@ class ChartBar extends StatelessWidget {
       padding: const EdgeInsets.all(3.0),
       child: Column(
         children: <Widget>[
-          Container(
+          SizedBox(
             height: 20,
             child: Text("$spendingAmount"),
           ),
-          SizedBox(
+          const SizedBox(
             height: 4,
           ),
-          Container(
+          SizedBox(
             height: 60,
             width: 10,
             child: Stack(children: <Widget>[
@@ -41,7 +40,7 @@ class ChartBar extends StatelessWidget {
               )
             ]),
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Text(label),
         ],
       ),

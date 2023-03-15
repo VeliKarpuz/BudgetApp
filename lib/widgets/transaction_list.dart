@@ -1,13 +1,12 @@
-import 'package:first_app/widgets/chart.dart';
 import 'package:first_app/widgets/new_transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/transaction.dart';
-import '../main.dart';
 
 class TransactionList extends StatefulWidget {
   final List<Transaction> transactions;
-  const TransactionList(this.transactions, {super.key});
+  final Function deleteTx;
+  const TransactionList(this.transactions, this.deleteTx, {super.key});
 
   @override
   State<TransactionList> createState() => _TransactionListState();
@@ -35,7 +34,7 @@ class _TransactionListState extends State<TransactionList> {
     return widget.transactions.where((tx) {
       return tx.date.isAfter(
         DateTime.now().subtract(
-          Duration(days: 7),
+          const Duration(days: 7),
         ),
       );
     }).toList();
@@ -58,7 +57,7 @@ class _TransactionListState extends State<TransactionList> {
   void editButton(String id) {
     setState(() {
       widget.transactions.removeWhere((tx) => tx.id == id);
-      Chart(recentTransactions);
+      // Chart(recentTransactions);
     });
   }
 
@@ -90,7 +89,6 @@ class _TransactionListState extends State<TransactionList> {
             trailing: IconButton(
               onPressed: () {
                 editButton(widget.transactions[index].id);
-                NewTransaction(editTransaction);
               },
               icon: const Icon(Icons.edit),
               iconSize: 30,
